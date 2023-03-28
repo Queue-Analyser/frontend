@@ -1,0 +1,13 @@
+.chart-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid #3b1c1c; */
+    width: 1000px;
+    height: 400px;
+    flex-direction: column;
+}
+.food {
+    font-size: 20px;
+    margin-bottom: 100px;
+}
