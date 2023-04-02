@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 import '../styles/Chart.css'
 
 const Chart = () => {
 const [random, setRandom] = useState(0)
+// const [quantity, setQuantity] = useState([7, 15, 6, 5, 3, 7])
+const quantity = useSelector(state => state.quantity.quantity)
 
 useEffect(() => {
   setTimeout(() => {
@@ -14,7 +17,7 @@ useEffect(() => {
   }, 1000);
     }) 
   
-const [quantity] = useState([7, 15, 6, 5, 3, 7])
+
 
 const data = [
 {
