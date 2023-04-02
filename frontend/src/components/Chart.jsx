@@ -7,15 +7,17 @@ const Chart = () => {
     const [random, setRandom] = useState(0)
     // const [quantity, setQuantity] = useState([7, 15, 6, 5, 3, 7])
     const quantity = useSelector(state => state.quantity.data)
+    const url = `http://127.0.0.1:5000/getCurrentValue`;
 
     useEffect(() => {
     setTimeout(() => {
-        (Math.random() * 100) % 2 < 1 && random > 0
-        ? setRandom(random - 1) 
-        : setRandom(random + 1);
-        return random
-    }, 1000);
-        }) 
+        fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            setRandom(data);
+        })
+        }, 1000);
+    }) 
 
     const data = [{
                     name: '10:00',
