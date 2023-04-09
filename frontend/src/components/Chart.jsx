@@ -1,35 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 import '../styles/Chart.css'
 
 const Chart = () => {
     const [random, setRandom] = useState(0)
-    // const [quantity, setQuantity] = useState([7, 15, 6, 5, 3, 7])
-    const quantity = useSelector(state => state.quantity.data)
-    const url = `http://127.0.0.1:5000/getCurrentValue`;
+    const [quantity, setQuantity] = useState([0, 0, 0, 0, 0, 0])
 
-    useEffect(() => {
-    setTimeout(() => {
-        fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            setRandom(data);
-        })
-        }, 1000);
-    }) 
+    // const quantity = useSelector(state => state.quantity.data)
+    // const url = `http://127.0.0.1:5000/getCurrentValue`;
+    // setRandom(min + (Math.random() * (max-min))) 
+    // useEffect(() => {
+    // setTimeout(() => {
+    //     fetch(url)
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         setRandom(data);
+    //     })
+    //     }, 1000);
+    // }) 
+    
+// ==============================================TEST========================================================================
+    const [time, setTime] = useState(10)
+    // setTime(10)
 
+    const [queue1, setQueue1] = useState(0)
+    const [queue2, setQueue2] = useState(0)
+    const [queue3, setQueue3] = useState(0)
+
+    let max = 10
+    let min = 1
+    // setRandom(min + (Math.random() * (max-min)))
+
+    
+    function funcAll() {
+        if (time === 10) {
+            setQueue1(min + (Math.random() * (max-min)))
+        }
+        if (time === 20) {
+            setQueue2(min + (Math.random() * (max-min)))
+        }
+        if (time === 30) {
+            setQueue3(min + (Math.random() * (max-min)))
+        }
+        return 
+    }
+    
+   useEffect(() => {
+      funcAll()  
+   })
+
+// ==============================================TEST========================================================================
+    
+    
+
+
+          
+
+   
     const data = [{
                     name: '10:00',
-                    people: quantity[0],  //размер одной свечи
+                    people: queue1,  //размер одной свечи
                 },
                 {
                     name: '11:00',
-                    people: quantity[1],
+                    people: queue2,
                 },
                 {
                     name: '12:00',
-                    people: quantity[2],
+                    people: queue3,
                 },
                 {
                     name: '13:00',
@@ -45,7 +83,7 @@ const Chart = () => {
                 },
                 {
                     name: '16:00',
-                    people: random,
+                    people: quantity[5],
                 },
             ]
 
