@@ -62,7 +62,7 @@ const ChartNow = () => {
         bottom: 5,
         }}
         barSize={20}
-        barCategoryGap={1} margin={{ left: -10 }}
+        barCategoryGap={1}
       >
         <XAxis dataKey="time" />
         <YAxis />
