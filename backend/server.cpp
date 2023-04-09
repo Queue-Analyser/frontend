@@ -7,7 +7,7 @@ using boost::asio::ip::tcp;
 
 int main() {
     boost::asio::io_service io_service;
-
+    int result = 0;
     // Создаем серверный сокет и привязываем его к порту 5000
     tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 5000));
 
@@ -30,7 +30,12 @@ int main() {
         if (buf.size() > 0) {
             std::string request(boost::asio::buffers_begin(buf.data()), boost::asio::buffers_end(buf.data()));
             if (request.find("/getCurrentValue") != std::string::npos) {
-                int result = rand() % 16;
+                if (rand() % 2 || result == 0){
+                    result += 5;
+                } else {
+                    result -= 1;
+                }
+                result %= 25;
                 message += std::to_string(result);
             }
         }
