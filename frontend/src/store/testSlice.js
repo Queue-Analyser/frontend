@@ -9,10 +9,6 @@ const testSlice = createSlice({
         quantityReducer(state, action) {
             console.log(state);
             console.log(action);
-
-        //    state.quantity.push({
-        //     num: action.payload.num
-        //    }) 
         },
     }
 })

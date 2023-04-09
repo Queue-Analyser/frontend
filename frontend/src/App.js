@@ -1,10 +1,12 @@
 import './styles/App.css';
-import Chart from './components/Chart';
+import ChartDatabase from './components/ChartDatabase';
+import ChartGPT from './components/ChartNow';
 
 function App() {
   return (
     <div className="App container center">
-     <Chart />
+     <ChartGPT />
+     <ChartDatabase />
     </div>
   );
 }

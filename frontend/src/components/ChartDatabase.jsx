@@ -3,8 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer
 import '../styles/Chart.css'
 
 const Chart = () => {
-    const [random, setRandom] = useState(0)
-    const [quantity, setQuantity] = useState([0, 0, 0, 0, 0, 0])
+    const [quantity] = useState([0, 0, 0, 7, 19, 8])
 
     // const quantity = useSelector(state => state.quantity.data)
     // const url = `http://127.0.0.1:5000/getCurrentValue`;
@@ -20,7 +19,7 @@ const Chart = () => {
     // }) 
     
 // ==============================================TEST========================================================================
-    const [time, setTime] = useState(10)
+    const [time] = useState(10)
     // setTime(10)
 
     const [queue1, setQueue1] = useState(0)
