@@ -8,9 +8,25 @@ const ChartNow = () => {
 
   const updateData = async () => {
     const newPeople = await fetchData();
-    const newData = [...data.slice(-15), { time: new Date().toLocaleTimeString(), people: newPeople }];
+    const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
     setData(newData);
+    localStorage.setItem('data', JSON.stringify(newData));
   };
+
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem('data'));
+    if (savedData) {
+      setData(savedData);
+    } else {
+      const fetchDataAndUpdate = async () => {
+        const newPeople = await fetchData();
+        const initialData = [{ time: new Date().toLocaleTimeString(), people: newPeople }];
+        setData(initialData);
+        localStorage.setItem('data', JSON.stringify(initialData));
+      };
+      fetchDataAndUpdate();
+    }
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,7 +50,7 @@ const ChartNow = () => {
 
   return (
     <div className='chart-box'>
-      <div className='chart-text'>Загруженность столовой в последние 15 минут</div>
+      <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
       <BarChart 
         width={500}
         height={300}
