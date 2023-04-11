@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import '../styles/Chart.css'
+import '../../styles/Chart.css'
 
 const ChartNow = () => {
   const [data, setData] = useState([]);
@@ -35,7 +35,7 @@ const ChartNow = () => {
         barSize={20}>
       <XAxis dataKey="time" />
       <YAxis />
-      <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+      <CartesianGrid stroke={"#eee"} strokeDasharray="5 5" />
       <Bar dataKey="people" fill="orange" background={{ fill: '#eee' }}/>
       <Tooltip />
     </BarChart>

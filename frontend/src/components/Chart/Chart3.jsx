@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
-import '../styles/Chart.css'
+import '../../styles/Chart.css'
 
-const Chart = () => {
+const Chart3 = () => {
     const [quantity] = useState([0, 0, 0, 7, 19, 8])
 
     // const quantity = useSelector(state => state.quantity.data)
@@ -106,11 +106,11 @@ const Chart = () => {
                     <YAxis />
                     <Legend />
                     <CartesianGrid strokeDasharray="3 3" />
-                    <Bar dataKey="people" fill="orange" background={{ fill: '#eee' }} />
+                    <Bar dataKey="people" fill="blue" background={{ fill: '#eee' }} />
                 </BarChart>
             </ResponsiveContainer>
         </div>
     );
 };
 
-export default Chart;
+export default Chart3;
