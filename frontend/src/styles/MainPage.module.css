@@ -1,0 +1,38 @@
+.link {
+    text-decoration: none;
+    margin-bottom: 10px;
+    
+}
+.main_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.left_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 500px;
+    box-shadow: 1px 1px 10px #746868;
+    /* background: blue; */
+    flex-direction: column;
+    margin-right: 8px;
+}
+
+.right_box {
+    width: 800px;
+    height: 500px;
+    box-shadow: 1px 1px 10px #746868;
+    
+    /* background: rgb(66, 172, 101); */
+
+}
+.btn {
+    
+}
+.accord{
+    margin-top: 51px;
+    box-shadow: 1px 1px 10px #746868;
+
+}

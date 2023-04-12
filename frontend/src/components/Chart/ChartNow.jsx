@@ -26,6 +26,8 @@ const ChartNow = () => {
   }, [data]);
 
   return (
+    <div className='chart-box'>
+            <h1 className='header_text'>Загруженность столовой</h1>
     <BarChart width={800} height={400} data={data} margin={{
         top: 5,
         right: 30,
@@ -39,6 +41,7 @@ const ChartNow = () => {
       <Bar dataKey="people" fill="orange" background={{ fill: '#eee' }}/>
       <Tooltip />
     </BarChart>
+    </div>
   );
 };
 

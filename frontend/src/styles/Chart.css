@@ -7,3 +7,19 @@
     flex-direction: column;
     margin-top: 50px;
 }
+
+/* .chart-text{
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin: 10px;
+    font-weight: 600px;
+    letter-spacing: 0.01em;
+} */
+
+.header_text {
+    font-size: 26px;
+    margin: 10px;
+    font-weight: 600px;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+}

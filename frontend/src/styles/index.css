@@ -14,10 +14,3 @@ body {
     justify-content: center;
     align-items: center;
 }
-
-.header_text{
-    font-size: 26px;
-    margin: 10px;
-    font-weight: 600px;
-    letter-spacing: 0.01em;
-}
