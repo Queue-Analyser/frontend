@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { fetchData } from '../../api/data';
 import '../../styles/Chart.css'
+import Stats from './Stats';
+import styles from '../../styles/MainPage.module.css'
 
 const ChartNow = () => {
   const [data, setData] = useState([]);
+  
 
   const updateData = async () => {
     const newPeople = await fetchData();
@@ -28,7 +31,9 @@ const ChartNow = () => {
     }
   }, []);
 
-  useEffect(() => {
+  const Boost = () => {
+
+
     const intervalId = setInterval(() => {
       updateData();
     }, 2000);
@@ -36,6 +41,10 @@ const ChartNow = () => {
     return () => {
       clearInterval(intervalId);
     };
+  }
+
+  useEffect(() => {
+    Boost()
   }, [data]);
 
   const getFill = (people) => {
@@ -49,7 +58,8 @@ const ChartNow = () => {
   };
 
   return (
-    <div className='chart-box'>
+    <div>
+      <div className='chart-box'>
       <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
       <BarChart 
         width={500}
@@ -75,6 +85,11 @@ const ChartNow = () => {
         <Tooltip />
       </BarChart>
     </div>
+    <div className={ styles.accord }>
+                    <Stats text={'Stats1'}/>  
+                </div>
+    </div>
+    
   );
 };
 

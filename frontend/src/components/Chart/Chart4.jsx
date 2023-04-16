@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 import '../../styles/Chart.css'
+import Stats from './Stats';
+import styles from '../../styles/MainPage.module.css'
 
 const Chart4 = () => {
     const [quantity] = useState([0, 0, 0, 7, 19, 8])
-
+    const T = 3000
+    
+    
     // const quantity = useSelector(state => state.quantity.data)
     // const url = `http://127.0.0.1:5000/getCurrentValue`;
     // setRandom(min + (Math.random() * (max-min))) 
@@ -44,9 +48,11 @@ const Chart4 = () => {
         return 
     }
     
-   useEffect(() => {
-      funcAll()  
-   })
+    useEffect(() => {
+        setTimeout(() => {
+          funcAll()    
+        }, T);  
+       })
 
 // ==============================================TEST========================================================================
     
@@ -87,29 +93,35 @@ const Chart4 = () => {
             ]
 
     return (
+        <div>
         <div className='chart-box'>
-            <h1 className='header_text'>Загруженность столовой</h1>
-            <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                    width={500}
-                    height={300}
-                    data={data}
-                    margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                    }}
-                    barSize={20}
-                >
-                    <XAxis dataKey="name" scale="point" padding={{ left: 20, right: 20 }} />
-                    <YAxis />
-                    <Legend />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Bar dataKey="people" fill="orange" background={{ fill: '#eee' }} />
-                </BarChart>
-            </ResponsiveContainer>
-        </div>
+         <h1 className='header_text'>Загруженность столовой</h1>
+         <ResponsiveContainer width="100%" height="100%">
+             <BarChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+                }}
+                barSize={20}
+             >
+                <XAxis dataKey="name" scale="point" padding={{ left: 20, right: 20 }} />
+                <YAxis />
+                <Legend />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Bar dataKey="people" fill="blue" background={{ fill: '#eee' }} />
+             </BarChart>
+         </ResponsiveContainer>
+         
+     </div> 
+         <div className={ styles.accord }>
+                 <Stats/>  
+             </div>
+     </div>
     );
 };
 

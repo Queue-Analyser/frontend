@@ -6,7 +6,7 @@ import icon from '../image/favicon.png'
 const Header = () => {
     return (
         <>
-           <Paper className={styles.header} elevation={10}>
+           <Paper className={styles.header} elevation={3}>
             пока не знаю как лучше сделать хедер
                 <img className={styles.logo} alt="example" src={icon}></img>
            </Paper>

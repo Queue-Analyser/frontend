@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CHART_1, CHART_2, CHART_3, CHART_4 } from '../utils/consts';
 import Button from '@mui/material/Button';
 import styles from '../styles/MainPage.module.css'
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import Stats from '../components/Chart/Stats';
 
 const MainPage = () => {
     return (
@@ -19,26 +19,9 @@ const MainPage = () => {
                 <div>
                     <RouteChart/> 
                 </div>
-                <div className={ styles.accord }>
-                    <Accordion>
-                        <AccordionSummary
-                        
-                        //   expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                        <Typography>Stats</Typography>
-                        </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    Какая-то статистика1<br/>
-                                    Какая-то статистика2<br/>
-                                    Какая-то статистика3<br/>
-                                    Какая-то статистика4
-                                </Typography>
-                            </AccordionDetails>
-                    </Accordion>
-                </div>
+                {/* <div className={ styles.accord }>
+                    <Stats/>  
+                </div> */}
                
         
             </div>  

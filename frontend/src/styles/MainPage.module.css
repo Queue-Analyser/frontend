@@ -14,7 +14,7 @@
     justify-content: center;
     width: 200px;
     height: 500px;
-    box-shadow: 1px 1px 10px #746868;
+    box-shadow: 0px 3px 6px #b9b1b1;
     /* background: blue; */
     flex-direction: column;
     margin-right: 8px;
@@ -23,16 +23,25 @@
 .right_box {
     width: 800px;
     height: 500px;
-    box-shadow: 1px 1px 10px #746868;
+    box-shadow: 0px 3px 6px #b9b1b1;
+
     
     /* background: rgb(66, 172, 101); */
 
 }
-.btn {
+/* .btn {
     
-}
+} */
 .accord{
     margin-top: 51px;
-    box-shadow: 1px 1px 10px #746868;
-
+    box-shadow: 0px 3px 6px #b9b1b1;
+    z-index: 10;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+.inline {
+    display: flex;
 }
