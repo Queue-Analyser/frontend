@@ -7,7 +7,7 @@ import styles from '../../styles/MainPage.module.css'
 
 const ChartNow = () => {
   const [data, setData] = useState([]);
-  
+
 
   const updateData = async () => {
     const newPeople = await fetchData();
@@ -33,18 +33,40 @@ const ChartNow = () => {
 
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-const [warmup, setWarmup] = useState("09:40:00")
+  const [warmup, setWarmup] = useState("7:40:00")
 
-  const Boost = () => {
+  // const Boost = () => {
+  //   setCurrentTime(new Date().toLocaleTimeString());
+  //   if (currentTime >= warmup) {
+  //     const intervalId = setInterval(() => {
+  //       updateData();
+  //     }, 1000);
+  //     return () => {
+  //       clearInterval(intervalId);
+  //     };
+  //   } else {
+  //     const intervalId = setInterval(() => {
+  //       updateData();
+  //     }, 5000);
+  //     return () => {
+  //       clearInterval(intervalId);
+  //     };
+  //   }
+  // };
+
+
+
+  useEffect(() => {
     setCurrentTime(new Date().toLocaleTimeString());
-    if(currentTime >= warmup){
+    console.log(currentTime, warmup)
+    if (currentTime >= warmup) {
       const intervalId = setInterval(() => {
         updateData();
       }, 1000);
       return () => {
         clearInterval(intervalId);
       };
-    }else{
+    } else {
       const intervalId = setInterval(() => {
         updateData();
       }, 5000);
@@ -52,12 +74,6 @@ const [warmup, setWarmup] = useState("09:40:00")
         clearInterval(intervalId);
       };
     }
-  };
-
- 
-
-  useEffect(() => {
-    Boost()
   }, [data]);
 
   const getFill = (people) => {
@@ -73,36 +89,36 @@ const [warmup, setWarmup] = useState("09:40:00")
   return (
     <div>
       <div className='chart-box'>
-      <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
-      <BarChart 
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-        }}
-        barSize={20}
-        barCategoryGap={1}
-      >
-        <XAxis dataKey="time" />
-        <YAxis />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Bar dataKey="people" fill="orange" isAnimationActive={false}>
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={getFill(entry.people, index)} />
-          ))}
-        </Bar>
-        <Tooltip />
-      </BarChart>
+        <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+          barSize={20}
+          barCategoryGap={1}
+        >
+          <XAxis dataKey="time" />
+          <YAxis />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Bar dataKey="people" fill="orange" isAnimationActive={false}>
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={getFill(entry.people, index)} />
+            ))}
+          </Bar>
+          <Tooltip />
+        </BarChart>
+      </div>
+      <div className={styles.accord}>
+        <Stats text={'Stats1'} />
+      </div>
     </div>
-    <div className={ styles.accord }>
-                    <Stats text={'Stats1'}/>  
-                </div>
-    </div>
-    
+
   );
 };
 
