@@ -71,7 +71,6 @@ const [warmup, setWarmup] = useState("09:40:00")
             funcAll()    
           }, 10000);
     }
-    
   };
 
   

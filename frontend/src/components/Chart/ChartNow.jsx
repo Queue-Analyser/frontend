@@ -31,17 +31,30 @@ const ChartNow = () => {
     }
   }, []);
 
+
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+const [warmup, setWarmup] = useState("09:40:00")
+
   const Boost = () => {
+    setCurrentTime(new Date().toLocaleTimeString());
+    if(currentTime >= warmup){
+      const intervalId = setInterval(() => {
+        updateData();
+      }, 1000);
+      return () => {
+        clearInterval(intervalId);
+      };
+    }else{
+      const intervalId = setInterval(() => {
+        updateData();
+      }, 5000);
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  };
 
-
-    const intervalId = setInterval(() => {
-      updateData();
-    }, 2000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }
+ 
 
   useEffect(() => {
     Boost()
