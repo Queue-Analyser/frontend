@@ -1,126 +1,142 @@
-import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
+import { fetchData } from '../../api/data';
 import '../../styles/Chart.css'
 import Stats from './Stats';
 import styles from '../../styles/MainPage.module.css'
+import { useLocation } from 'react-router-dom';
 
-const ChartDatabase = () => {
-    const [quantity] = useState([0, 0, 0, 7, 19, 8])
+const ChartDatabase = (props) => {
+    const [data, setData] = useState([]);
 
-    // const quantity = useSelector(state => state.quantity.data)
-    // const url = `http://127.0.0.1:5000/getCurrentValue`;
-    // setRandom(min + (Math.random() * (max-min))) 
-    // useEffect(() => {
-    // setTimeout(() => {
-    //     fetch(url)
-    //     .then(response => response.text())
-    //     .then(data => {
-    //         setRandom(data);
-    //     })
-    //     }, 1000);
-    // }) 
-    
-// ==============================================TEST========================================================================
-    const [time] = useState(10)
-    // setTime(10)
 
-    const [queue1, setQueue1] = useState(0)
-    const [queue2, setQueue2] = useState(0)
-    const [queue3, setQueue3] = useState(0)
-
-    let max = 10
-    let min = 1
-    // setRandom(min + (Math.random() * (max-min)))
-
-    
-    function funcAll() {
-        if (time === 10) {
-            setQueue1(min + (Math.random() * (max-min)))
-        }
-        if (time === 20) {
-            setQueue2(min + (Math.random() * (max-min)))
-        }
-        if (time === 30) {
-            setQueue3(min + (Math.random() * (max-min)))
-        }
-        return 
-    }
-    
+    const updateData = async () => {
+      const newPeople = await fetchData();
+      const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
+      setData(newData);
+      localStorage.setItem('data', JSON.stringify(newData));
+    };
+  
     useEffect(() => {
-        setTimeout(() => {
-          funcAll()    
-        }, 3000);  
-       })
+      const savedData = JSON.parse(localStorage.getItem('data'));
+      if (savedData) {
+        setData(savedData);
+      } else {
+        const fetchDataAndUpdate = async () => {
+          const newPeople = await fetchData();
+          const initialData = [{ time: new Date().toLocaleTimeString(), people: newPeople }];
+          setData(initialData);
+          localStorage.setItem('data', JSON.stringify(initialData));
+        };
+        fetchDataAndUpdate();
+      }
+    }, []);
+  
+  
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+    const [warmup, setWarmup] = useState("3:40:00")
+  
+    // const Boost = () => {
+    //   setCurrentTime(new Date().toLocaleTimeString());
+    //   if (currentTime >= warmup) {
+    //     const intervalId = setInterval(() => {
+    //       updateData();
+    //     }, 1000);
+    //     return () => {
+    //       clearInterval(intervalId);
+    //     };
+    //   } else {
+    //     const intervalId = setInterval(() => {
+    //       updateData();
+    //     }, 5000);
+    //     return () => {
+    //       clearInterval(intervalId);
+    //     };
+    //   }
+    // };
+  
+  
+  
+    useEffect(() => {
+      setCurrentTime(new Date().toLocaleTimeString());
+      console.log(currentTime, warmup)
+      if (currentTime >= warmup) {
+        const intervalId = setInterval(() => {
+          updateData();
+        }, 1000);
+        return () => {
+          clearInterval(intervalId);
+        };
+      } else {
+        const intervalId = setInterval(() => {
+          updateData();
+        }, 5000);
+        return () => {
+          clearInterval(intervalId);
+        };
+      }
+    }, [data]);
+  
+    const getFill = (people) => {
+      if (people < 5) {
+        return '#21d927';
+      } else if (people >= 5 && people <= 15) {
+        return '#f2b007';
+      } else {
+        return '#e82e2e';
+      }
+    };
 
-// ==============================================TEST========================================================================
-    
-    
 
+    const location = useLocation()
+    let text
 
-          
-
-   
-    const data = [{
-                    name: '10:00',
-                    people: queue1,  //размер одной свечи
-                },
-                {
-                    name: '11:00',
-                    people: queue2,
-                },
-                {
-                    name: '12:00',
-                    people: queue3,
-                },
-                {
-                    name: '13:00',
-                    people: quantity[3],
-                },
-                {
-                    name: '14:00',
-                    people: quantity[4],
-                },
-                {
-                    name: '15:00',
-                    people: quantity[5],
-                },
-                {
-                    name: '16:00',
-                    people: quantity[5],
-                },
-            ]
-
+    if (location.pathname === "/chart/1") {
+      text = "Stats1";
+    } else if (location.pathname === "/chart/2") {
+      text = "Stats2";
+    } else if (location.pathname === "/chart/3") {
+      text = "Stats3";
+    } else if (location.pathname === "/chart/4") {
+      text = "Stats4";
+    }
+  
     return (
-        <div>
+      <div>
+      
         <div className='chart-box'>
-         <h1 className='header_text'>Загруженность столовой</h1>
-         <ResponsiveContainer width="100%" height="100%">
-             <BarChart
-                 width={500}
-                 height={300}
-                 data={data}
-                 margin={{
-                 top: 5,
-                 right: 30,
-                 left: 20,
-                 bottom: 5,
-                 }}
-                 barSize={20}
-             >
-                 <XAxis dataKey="name" scale="point" padding={{ left: 20, right: 20 }} />
-                 <YAxis />
-                 <Legend />
-                 <CartesianGrid strokeDasharray="3 3" />
-                 <Bar dataKey="people" fill="blue" background={{ fill: '#eee' }} />
-             </BarChart>
-         </ResponsiveContainer>
-         
-     </div> 
-         <div className={ styles.accord }>
-                 <Stats/>  
-             </div>
-     </div>
+          <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
+          <BarChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+            barSize={20}
+            barCategoryGap={1}
+          >
+            <XAxis dataKey="time" />
+            <YAxis />
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+            <Bar dataKey="people" fill="orange" isAnimationActive={false}>
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getFill(entry.people, index)} />
+              ))}
+            </Bar>
+            <Tooltip />
+          </BarChart>
+        </div>
+        <div className={styles.accord}>
+          <Stats text={text} />
+          
+        </div>
+      </div>
+  
     );
-};
-
+  };
+  
 export default ChartDatabase;

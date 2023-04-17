@@ -33,7 +33,7 @@ const ChartNow = () => {
 
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  const [warmup, setWarmup] = useState("7:40:00")
+  const [warmup, setWarmup] = useState("3:40:00")
 
   // const Boost = () => {
   //   setCurrentTime(new Date().toLocaleTimeString());
