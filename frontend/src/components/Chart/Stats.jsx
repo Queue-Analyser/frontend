@@ -9,7 +9,7 @@ const Stats = (props) => {
 
     return (
         <div>
-            <Accordion>
+            <Accordion style={{ backgroundColor: '#e3d3a6' }}>
                     <AccordionSummary
                         //   expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"

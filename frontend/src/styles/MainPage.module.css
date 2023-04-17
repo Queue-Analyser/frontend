@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 150px;
 }
 .left_box {
     display: flex;
@@ -14,19 +15,24 @@
     justify-content: center;
     width: 200px;
     height: 500px;
-    box-shadow: 0px 3px 6px #b9b1b1;
+    /* box-shadow: 0px 3px 6px #b9b1b1; */
     /* background: blue; */
     flex-direction: column;
     margin-right: 8px;
+    background: #e3d3a6;
+    border-radius: 5px;
+
 }
 
 .right_box {
     width: 800px;
     height: 500px;
-    box-shadow: 0px 3px 6px #b9b1b1;
+    /* box-shadow: 0px 3px 6px #b9b1b1; */
+    border-radius: 5px;
 
+    background: #e3d3a6;
     
-    /* background: rgb(66, 172, 101); */
+    /* background: #6ba4fa; */
 
 }
 /* .btn {
@@ -34,8 +40,10 @@
 } */
 .accord{
     margin-top: 51px;
-    box-shadow: 0px 3px 6px #b9b1b1;
+    /* box-shadow: 0px 3px 6px #b9b1b1; */
     z-index: 10;
+    /* background: #6ba4fa; */
+
 }
 .icon {
     width: 20px;
