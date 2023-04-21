@@ -1,10 +1,10 @@
-import './styles/App.css';
-import MainPage from './Page/MainPage';
+import styles from './styles/App.module.css'
+import MainPage from './pages/MainPage';
 import Header from './components/Header';
 
 function App() {
   return (
-    <div className='container'>
+    <div className={styles.container}>
       <Header/>
       <MainPage/>
     </div>

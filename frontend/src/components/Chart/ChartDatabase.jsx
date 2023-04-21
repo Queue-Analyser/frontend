@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { fetchData } from '../../api/data';
-import '../../styles/Chart.css'
+import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
-import styles from '../../styles/MainPage.module.css'
 import { useLocation } from 'react-router-dom';
 
 const ChartDatabase = (props) => {
@@ -104,8 +103,8 @@ const ChartDatabase = (props) => {
     return (
       <div>
       
-        <div className='chart-box'>
-          <div className='chart-text'>Загруженность столовой в последние 30 секунд</div>
+        <div className={styles.chart}>
+          <div>Загруженность столовой в последние 30 секунд</div>
           <BarChart
             width={500}
             height={300}
