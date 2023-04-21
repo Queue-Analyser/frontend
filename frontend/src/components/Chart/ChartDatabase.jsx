@@ -70,19 +70,21 @@ const ChartDatabase = () => {
     const location = useLocation()
     let text
     let people
+    people = data?.[14]?.people
+    console.log(people);
 
     if (location.pathname === "/chart/1") {
       text = "Stats1";
-      people = data[14].people
+      people = data?.[14]?.people
     } else if (location.pathname === "/chart/2") {
       text = "Stats2";
-      people = data[14].people
+      people = data?.[14]?.people
     } else if (location.pathname === "/chart/3") {
       text = "Stats3";
-      people = data[14].people
+      people = data?.[14]?.people
     } else if (location.pathname === "/chart/4") {
       text = "Stats4";
-      people = data[14].people
+      people = data?.[14]?.people
     }
   
     return (
