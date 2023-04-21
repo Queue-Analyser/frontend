@@ -15,11 +15,9 @@
     justify-content: center;
     width: 200px;
     height: 500px;
-    /* box-shadow: 0px 3px 6px #b9b1b1; */
-    /* background: blue; */
     flex-direction: column;
     margin-right: 8px;
-    background: #e3d3a6;
+    background: #b0b1b3;
     border-radius: 5px;
 
 }
@@ -27,23 +25,16 @@
 .right_box {
     width: 800px;
     height: 500px;
-    /* box-shadow: 0px 3px 6px #b9b1b1; */
     border-radius: 5px;
-
-    background: #e3d3a6;
-    
-    /* background: #6ba4fa; */
-
+    background: #b0b1b3;
 }
-/* .btn {
-    
-} */
 
 .icon {
     width: 20px;
     height: 20px;
     margin-right: 6px;
 }
+
 .inline {
     display: flex;
 }

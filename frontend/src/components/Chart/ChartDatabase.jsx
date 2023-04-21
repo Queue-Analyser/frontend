@@ -5,9 +5,9 @@ import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
 import { useLocation } from 'react-router-dom';
 
-const ChartDatabase = (props) => {
+const ChartDatabase = () => {
     const [data, setData] = useState([]);
-
+    console.log(data);
 
     const updateData = async () => {
       const newPeople = await fetchData();
@@ -34,27 +34,7 @@ const ChartDatabase = (props) => {
   
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
     const [warmup, setWarmup] = useState("3:40:00")
-  
-    // const Boost = () => {
-    //   setCurrentTime(new Date().toLocaleTimeString());
-    //   if (currentTime >= warmup) {
-    //     const intervalId = setInterval(() => {
-    //       updateData();
-    //     }, 1000);
-    //     return () => {
-    //       clearInterval(intervalId);
-    //     };
-    //   } else {
-    //     const intervalId = setInterval(() => {
-    //       updateData();
-    //     }, 5000);
-    //     return () => {
-    //       clearInterval(intervalId);
-    //     };
-    //   }
-    // };
-  
-  
+
   
     useEffect(() => {
       setCurrentTime(new Date().toLocaleTimeString());
@@ -89,15 +69,20 @@ const ChartDatabase = (props) => {
 
     const location = useLocation()
     let text
+    let people
 
     if (location.pathname === "/chart/1") {
       text = "Stats1";
+      people = data[14].people
     } else if (location.pathname === "/chart/2") {
       text = "Stats2";
+      people = data[14].people
     } else if (location.pathname === "/chart/3") {
       text = "Stats3";
+      people = data[14].people
     } else if (location.pathname === "/chart/4") {
       text = "Stats4";
+      people = data[14].people
     }
   
     return (
@@ -130,8 +115,7 @@ const ChartDatabase = (props) => {
           </BarChart>
         </div>
         <div className={styles.accord}>
-          <Stats text={text} />
-          
+          <Stats text={text} people={people}/>
         </div>
       </div>
   

@@ -6,17 +6,18 @@ import styles from '../../styles/MainPage.module.css'
 const Stats = (props) => {
 
     const text = props.text
+    const people = props.people
 
     return (
         <div>
-            <Accordion style={{ backgroundColor: '#e3d3a6' }}>
+            <Accordion style={{ backgroundColor: '#b0b1b3' }}>
                     <AccordionSummary
                         //   expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
                         <Typography>
-                            <h2>Stats</h2>
+                            <h2>Stats {people}</h2>
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
