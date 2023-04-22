@@ -1,18 +1,17 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import React from 'react';
-import stats from '../../image/stats.png'
-import styles from '../../styles/MainPage.module.css'
+import LastStats from './LastStats';
 
 const Stats = (props) => {
 
-    const text = props.text
+    
     const people = props.people
-
+    const data = props.data
+    // console.log(data);
     return (
         <div>
             <Accordion style={{ backgroundColor: '#b0b1b3' }}>
                     <AccordionSummary
-                        //   expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
@@ -21,10 +20,10 @@ const Stats = (props) => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography className={styles.inline}>
-                            <img className={styles.icon} alt="example" src={stats}></img>
-                            <h3>{text}</h3>
-                        </Typography>
+                    {data.map(people =>
+                        <LastStats allStats={people.people}/>
+                    )}
+                        
                     </AccordionDetails>
             </Accordion>  
         </div>

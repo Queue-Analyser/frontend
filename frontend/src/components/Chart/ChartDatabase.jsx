@@ -3,12 +3,18 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recha
 import { fetchData } from '../../api/data';
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
-const ChartDatabase = () => {
+const ChartDatabase = (props) => {
     const [data, setData] = useState([]);
-    console.log(data);
-
+    
+    
+    const nameChart = [
+      'ГЗ 1 этаж',
+      'ГЗ 3 этаж',
+      'УЛК 5 этаж',
+      'УЛК 2 этаж'
+  ]
     const updateData = async () => {
       const newPeople = await fetchData();
       const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
@@ -38,7 +44,7 @@ const ChartDatabase = () => {
   
     useEffect(() => {
       setCurrentTime(new Date().toLocaleTimeString());
-      console.log(currentTime, warmup)
+      // console.log(currentTime, warmup)
       if (currentTime >= warmup) {
         const intervalId = setInterval(() => {
           updateData();
@@ -67,31 +73,14 @@ const ChartDatabase = () => {
     };
 
 
-    const location = useLocation()
-    let text
-    let people
-    people = data?.[14]?.people
-    console.log(people);
-
-    if (location.pathname === "/chart/1") {
-      text = "Stats1";
-      people = data?.[14]?.people
-    } else if (location.pathname === "/chart/2") {
-      text = "Stats2";
-      people = data?.[14]?.people
-    } else if (location.pathname === "/chart/3") {
-      text = "Stats3";
-      people = data?.[14]?.people
-    } else if (location.pathname === "/chart/4") {
-      text = "Stats4";
-      people = data?.[14]?.people
-    }
+    const [people, setPeople] = useState(['Stats1', 'Stats2', 'Stats3', 'Stats4',])
+    const { id } = useParams()
   
     return (
       <div>
       
         <div className={styles.chart}>
-          <div>Загруженность столовой в последние 30 секунд</div>
+          <div>{nameChart[id]}</div>
           <BarChart
             width={500}
             height={300}
@@ -117,7 +106,7 @@ const ChartDatabase = () => {
           </BarChart>
         </div>
         <div className={styles.accord}>
-          <Stats text={text} people={people}/>
+          <Stats data={data} text={people[id]} people={data?.[14]?.people}/>
         </div>
       </div>
   

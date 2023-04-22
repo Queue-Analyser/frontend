@@ -1,15 +1,14 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ChartDatabase from './ChartDatabase'
+import { router } from '../../routs';
 
 const RouteChart = () => {
     return (
-            <Routes >
-                <Route path="/chart/1" element={<ChartDatabase />} />
-                <Route path="/chart/2" element={<ChartDatabase />} />
-                <Route path="/chart/3" element={<ChartDatabase />} />
-                <Route path="/chart/4" element={<ChartDatabase />} />
-                <Route path='*' element={<Navigate to="/chart/1"/>} />
+            <Routes>
+                {router.map(({path, Component}) =>
+                    <Route key={path} path={path} element={<Component/>} exact/>)
+                }
+                <Route path='*' element={<Navigate to="/chart/0"/>} />
             </Routes>
     );
 };
