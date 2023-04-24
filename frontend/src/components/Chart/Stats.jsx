@@ -7,7 +7,6 @@ const Stats = (props) => {
     
     const people = props.people
     const data = props.data
-    console.log(data);
     return (
         <div>
             <Accordion style={{ backgroundColor: '#fff' }}>
@@ -16,14 +15,13 @@ const Stats = (props) => {
                         id="panel1a-header"
                         >
                         <Typography>
-                            <h2>Stats {people}</h2>
+                            <>Stats {people}</>
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                     {data.map(people =>
                         <LastStats allStats={people.people}/>
                     )}
-                        
                     </AccordionDetails>
             </Accordion>  
         </div>

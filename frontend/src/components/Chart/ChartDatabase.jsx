@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recha
 import { fetchData } from '../../api/data';
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ChartDatabase = (props) => {
     const [data, setData] = useState([]);
@@ -73,7 +73,7 @@ const ChartDatabase = (props) => {
     };
 
 
-    const [people, setPeople] = useState(['Stats1', 'Stats2', 'Stats3', 'Stats4',])
+   
     const { id } = useParams()
   
     return (
@@ -106,7 +106,7 @@ const ChartDatabase = (props) => {
           </BarChart>
         </div>
         <div className={styles.accord}>
-          <Stats data={data} text={people[id]} people={data?.[14]?.people}/>
+          <Stats data={data}  people={data?.[14]?.people}/>
         </div>
       </div>
   
