@@ -40,7 +40,7 @@ const ChartDatabase = (props) => {
   
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
     const [warmup, setWarmup] = useState("3:40:00")
-
+    
   
     useEffect(() => {
       setCurrentTime(new Date().toLocaleTimeString());

@@ -7,10 +7,10 @@ const Stats = (props) => {
     
     const people = props.people
     const data = props.data
-    // console.log(data);
+    console.log(data);
     return (
         <div>
-            <Accordion style={{ backgroundColor: '#b0b1b3' }}>
+            <Accordion style={{ backgroundColor: '#fff' }}>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
