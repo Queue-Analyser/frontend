@@ -4,8 +4,7 @@ import { fetchData } from '../../api/data';
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
 import { useParams } from 'react-router-dom';
-
-const ChartDatabase = (props) => {
+const ChartDatabase = () => {
     const [data, setData] = useState([]);
     
     
@@ -39,27 +38,35 @@ const ChartDatabase = (props) => {
   
   
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-    const [warmup, setWarmup] = useState("3:40:00")
-    
-  
+    // console.log(currentTime);
+    const [warmup, setWarmup] = useState([
+                                          {start: "10:05:00", end: "10:15:00"},
+                                          {start: "11:50:00", end: "12:00:00"},
+                                          {start: "13:35:00", end: "13:50:00"},
+                                          {start: "15:25:00", end: "15:40:00"},
+                                          {start: "17:15:00", end: "17:25:00"},
+                                          {start: "19:00:00", end: "19:10:00"},
+                                        ])                           
     useEffect(() => {
       setCurrentTime(new Date().toLocaleTimeString());
-      // console.log(currentTime, warmup)
-      if (currentTime >= warmup) {
-        const intervalId = setInterval(() => {
-          updateData();
-        }, 1000);
-        return () => {
-          clearInterval(intervalId);
-        };
-      } else {
-        const intervalId = setInterval(() => {
-          updateData();
-        }, 5000);
-        return () => {
-          clearInterval(intervalId);
-        };
+      for(let i = 1; i <= warmup.length; i++){
+        if (currentTime >= warmup[i].start && currentTime <= warmup[i].end) {
+               const intervalId = setInterval(() => {
+                 updateData();
+               }, 1000);
+               return () => {
+                 clearInterval(intervalId);
+               };
+        } else {
+          const intervalId = setInterval(() => {
+            updateData();
+          }, 10000);
+          return () => {
+            clearInterval(intervalId);
+          };
+        }
       }
+      
     }, [data]);
   
     const getFill = (people) => {
@@ -74,8 +81,7 @@ const ChartDatabase = (props) => {
 
 
    
-    const { id } = useParams()
-  
+    const { id } = useParams()    
     return (
       <div>
       
