@@ -15,12 +15,12 @@ const Stats = (props) => {
                         id="panel1a-header"
                         >
                         <Typography>
-                            <>Stats {people}</>
+                            <>Текущее число людей в очереди: {people}</>
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                    {data.map(people =>
-                        <LastStats allStats={people.people}/>
+                    {data.map((people, index) =>
+                        <LastStats key={index} allStats={people.people}/>
                     )}
                     </AccordionDetails>
             </Accordion>  

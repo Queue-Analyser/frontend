@@ -4,16 +4,13 @@ import { fetchData } from '../../api/data';
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
 import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
 const ChartDatabase = () => {
     const [data, setData] = useState([]);
+
+
+    const chart = useSelector(state => state.chart.chart)
     
-    
-    const nameChart = [
-      'ГЗ 1 этаж',
-      'ГЗ 3 этаж',
-      'УЛК 5 этаж',
-      'УЛК 2 этаж'
-  ]
     const updateData = async () => {
       const newPeople = await fetchData();
       const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
@@ -86,7 +83,7 @@ const ChartDatabase = () => {
       <div>
       
         <div className={styles.chart}>
-          <div>{nameChart[id]}</div>
+          <div>{chart[id].text}</div>
           <BarChart
             width={500}
             height={300}

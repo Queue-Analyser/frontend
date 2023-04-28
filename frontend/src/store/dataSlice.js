@@ -1,46 +1,21 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const fetchData2 = createAsyncThunk(
-    'data2/fetchData',
-    async function() {
-        try {
-            const response = await fetch('http://127.0.0.1:8080/getCurrentValue');
-            const data2 = await response.json();
-            return data2;
-          } catch (error) {
-            console.log(error);
-            throw error;
-          }
-    }
-)
 
 
 const testSlice = createSlice({
-    name: 'data2',
+    name: 'chart',
     initialState: {
-        data2: [],
-        status: null,
-        error: null,
+        chart: [
+            {path: '/chart/0', text: 'ГЗ 1 этаж', id: 1},
+            {path: '/chart/1', text: 'ГЗ 3 этаж', id: 2},
+            {path: '/chart/2', text: 'УЛК 5 этаж', id: 3},
+            {path: '/chart/3', text: 'УЛК 2 этаж', id: 4},
+        ],
     },
     reducers: {
-        dataReducer(state, action) {
-            state.data2.push({
-            time: new Date().toLocaleTimeString(), 
-            people: action.payload.text
-            })
-        },
+    
     },
-    extraReducers: {
-        [fetchData2.pending]: (state) => {
-            state.status = 'loading';
-            state.error = null;
-        },
-        [fetchData2.fulfilled]: (state, action) => {
-            state.status = 'resolved';
-            state.data = action.payload
-        },
-        [fetchData2.rejected]: (state, action) => {}
-    }
+    
 })
 
 export const {testReducer} = testSlice.actions
