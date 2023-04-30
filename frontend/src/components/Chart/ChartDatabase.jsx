@@ -109,7 +109,7 @@ const ChartDatabase = () => {
           </BarChart>
         </div>
         <div className={styles.accord}>
-          <Stats data={data}  people={data?.[14]?.people}/>
+          <Stats people={data?.[14]?.people}/>
         </div>
       </div>
   

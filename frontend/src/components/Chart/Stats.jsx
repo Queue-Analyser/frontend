@@ -1,12 +1,13 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import React from 'react';
 import LastStats from './LastStats';
+import { useSelector } from 'react-redux';
 
 const Stats = (props) => {
 
-    
+    const chart = useSelector(state => state.chart.chart)
+    console.log(chart);
     const people = props.people
-    const data = props.data
     return (
         <div>
             <Accordion style={{ backgroundColor: '#fff' }}>
@@ -19,9 +20,10 @@ const Stats = (props) => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                    {data.map((people, index) =>
-                        <LastStats key={index} allStats={people.people}/>
-                    )}
+                        <LastStats text={chart[0].text} allStats={people}/>
+                        <LastStats text={chart[1].text} allStats={people}/>
+                        <LastStats text={chart[2].text} allStats={people}/>
+                        <LastStats text={chart[3].text} allStats={people}/>
                     </AccordionDetails>
             </Accordion>  
         </div>
