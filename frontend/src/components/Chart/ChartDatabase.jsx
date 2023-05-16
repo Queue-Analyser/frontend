@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
-import { fetchData } from '../../api/data';
+// import { fetchData } from '../../api/data';
+import { getDataFromDb } from '../../api/getDataFromDb';
+
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
+
 const ChartDatabase = () => {
     const [data, setData] = useState([]);
 
@@ -12,8 +15,9 @@ const ChartDatabase = () => {
     const chart = useSelector(state => state.chart.chart)
     
     const updateData = async () => {
-      const newPeople = await fetchData();
-      const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
+      // const newPeople = await getDataFromDb(getStartTime(), getEndTime());
+      // const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
+      const newData = await getDataFromDb();
       setData(newData);
       localStorage.setItem('data', JSON.stringify(newData));
     };
@@ -24,8 +28,7 @@ const ChartDatabase = () => {
         setData(savedData);
       } else {
         const fetchDataAndUpdate = async () => {
-          const newPeople = await fetchData();
-          const initialData = [{ time: new Date().toLocaleTimeString(), people: newPeople }];
+          const initialData = await getDataFromDb();
           setData(initialData);
           localStorage.setItem('data', JSON.stringify(initialData));
         };

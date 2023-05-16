@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 const Stats = (props) => {
 
     const chart = useSelector(state => state.chart.chart)
-    console.log(chart);
     const people = props.people
+    console.log(people);
     return (
         <div>
             <Accordion style={{ backgroundColor: '#fff' }}>
