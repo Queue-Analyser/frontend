@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recha
 import { getCurrentValue } from '../../api/getCurrentValue';
 import { getDataFromDb } from '../../api/getDataFromDb';
 import { get_fill } from '../../utils/get_fill';
+import { getLastElementsJson } from '../../map/getLastElementsJson';
 
 import styles from '../../styles/Chart.module.css';
 import Stats from './Stats';
@@ -12,17 +13,27 @@ import { useSelector } from 'react-redux';
 const ChartDatabase = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [stats, setStats] = useState([]);
   const chart = useSelector(state => state.chart.chart);
 
   const updateData = async () => {
-    const newDataPoint = await getCurrentValue(id);
-    const updatedData = [...data.slice(-14), newDataPoint[id]];
+    const updatedStats = [];
+
+    for (let i = 0; i < stats.length; i++) {
+      const newStat = await getCurrentValue(i);
+      updatedStats.push(newStat[i]);
+    }
+    const updatedData = [...data.slice(-14), updatedStats[id]];
+
+    setStats(updatedStats);
     setData(updatedData);
   };
 
   useEffect(() => {
     const fetchDataAndUpdate = async () => {
       const initialData = await getDataFromDb();
+      const stats = getLastElementsJson(initialData);
+      setStats(stats);
       setData(initialData[id]);
     };
     fetchDataAndUpdate();
@@ -121,7 +132,7 @@ const ChartDatabase = () => {
         </BarChart>
       </div>
       <div className={styles.accord}>
-        <Stats people={data?.[14]?.['amount']} />
+        <Stats people={stats} id={id}/>
       </div>
     </div>
   );

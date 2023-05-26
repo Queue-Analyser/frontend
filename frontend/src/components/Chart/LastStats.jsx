@@ -4,15 +4,14 @@ import stats from '../../image/stats.png'
 import styles from '../../styles/MainPage.module.css'
 
 const LastStats = (props) => {
-    const allStats = props.allStats
+    const amount = props.amount
+    const time = props.time
 
     return (
-        <div>
             <Typography className={styles.inline}>
                 <img className={styles.icon} alt="example" src={stats}></img>
-                <>{props.text}: {allStats}</> 
+                {props.text}: {amount} ({time})
             </Typography>
-        </div>
     );
 };
 
