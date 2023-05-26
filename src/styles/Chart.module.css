@@ -1,0 +1,24 @@
+.chart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 400px;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+
+.header_text {
+    font-size: 26px;
+    margin: 10px;
+    font-weight: 600px;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+}
+
+.accord{
+    margin-top: 51px;
+    z-index: 10;
+
+}

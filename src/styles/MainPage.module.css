@@ -1,0 +1,38 @@
+.main_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+}
+.left_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 500px;
+    flex-direction: column;
+    margin-right: 8px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #9d9d9d;
+
+}
+
+.right_box {
+    width: 800px;
+    height: 500px;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 1px 1px 10px #9d9d9d;
+
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+}
+
+.inline {
+    display: flex;
+}
