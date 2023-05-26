@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
-import { getCurrentValue } from '../../api/getCurrentValue';
+import { Box } from '@mui/material'
 import { getDataFromDb } from '../../api/getDataFromDb';
-import { get_fill } from '../../utils/get_fill';
 import { getLastElementsJson } from '../../map/getLastElementsJson';
 
-import styles from '../../styles/Chart.module.css';
 import Stats from './Stats';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Chart from './Chart';
 
 const ChartDatabase = () => {
   const { id } = useParams();
@@ -17,14 +15,8 @@ const ChartDatabase = () => {
   const chart = useSelector(state => state.chart.chart);
 
   const updateData = async () => {
-    const updatedStats = [];
-
-    for (let i = 0; i < stats.length; i++) {
-      const newStat = await getCurrentValue(i);
-      updatedStats.push(newStat[i]);
-    }
-    const updatedData = [...data.slice(-14), updatedStats[id]];
-
+    const updatedData = await getDataFromDb();
+    const updatedStats = getLastElementsJson(updatedData);
     setStats(updatedStats);
     setData(updatedData);
   };
@@ -34,7 +26,7 @@ const ChartDatabase = () => {
       const initialData = await getDataFromDb();
       const stats = getLastElementsJson(initialData);
       setStats(stats);
-      setData(initialData[id]);
+      setData(initialData);
     };
     fetchDataAndUpdate();
   }, [id]);
@@ -104,37 +96,10 @@ const ChartDatabase = () => {
   }, []);
 
   return (
-    <div>
-      <div className={styles.chart}>
-        <div>{chart[id].text}</div>
-        <BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-          barSize={20}
-          barCategoryGap={1}
-        >
-          <XAxis dataKey="time" />
-          <YAxis />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Bar dataKey="amount" fill="orange" isAnimationActive={false}>
-            {data?.map((el, index) => (
-              <Cell key={`cell-${index}`} fill={get_fill(el['amount'])} />
-            ))}
-          </Bar>
-          <Tooltip />
-        </BarChart>
-      </div>
-      <div className={styles.accord}>
-        <Stats people={stats} id={id}/>
-      </div>
-    </div>
+    <Box>
+      <Chart text={chart[id].text} data={data[id]} />
+      <Stats people={stats} id={id} />
+    </Box>
   );
 };
 

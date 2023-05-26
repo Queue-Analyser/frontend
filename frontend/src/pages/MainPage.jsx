@@ -1,9 +1,9 @@
 import React from 'react';
-import Chart from '../components/Chart/Chart';
+import ChartWidget from '../components/Chart/ChartWidget';
 
 const MainPage = () => {
     return (
-        <Chart />
+        <ChartWidget />
     );
 };
 
