@@ -1,5 +1,3 @@
-// utils.js
-
 export const getStartTime = () => {
     const currentTime = new Date();
     const fifteenMinutesAgo = new Date(currentTime.getTime() - 15 * 60 * 1000);

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { router } from '../../routs';
+import { router } from '../../routes';
 
 const RouteChart = () => {
-    return (
-            <Routes>
-                {router.map(({path, Component}) =>
-                    <Route key={path} path={path} element={<Component/>} exact/>)
-                }
-                <Route path='*' element={<Navigate to="/chart/0"/>} />
-            </Routes>
+  return (
+    <Routes>
+      {router.map(({path, Component}) =>
+          <Route key={path} path={path} element={<Component/>} exact/>)
+      }
+      <Route path='*' element={<Navigate to="/chart/0"/>} />
+    </Routes>
     );
 };
 

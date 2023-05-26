@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
-// import { fetchData } from '../../api/data';
+import { getCurrentValue } from '../../api/getCurrentValue';
 import { getDataFromDb } from '../../api/getDataFromDb';
+import { get_fill } from '../../utils/get_fill';
 
 import styles from '../../styles/Chart.module.css'
 import Stats from './Stats';
@@ -9,28 +10,26 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 const ChartDatabase = () => {
+    const { id } = useParams()    
     const [data, setData] = useState([]);
-
-
     const chart = useSelector(state => state.chart.chart)
     
     const updateData = async () => {
-      // const newPeople = await getDataFromDb(getStartTime(), getEndTime());
-      // const newData = [...data.slice(-14), { time: new Date().toLocaleTimeString(), people: newPeople }];
-      const newData = await getDataFromDb();
+      const newPeople = await getCurrentValue(id);
+      const newData = [...data.slice(-14), newPeople[id]];
       setData(newData);
-      localStorage.setItem('data', JSON.stringify(newData));
+      localStorage.setItem(`data_${id}`, JSON.stringify(newData));
     };
   
     useEffect(() => {
-      const savedData = JSON.parse(localStorage.getItem('data'));
+      const savedData = JSON.parse(localStorage.getItem(`data_${id}`));
       if (savedData) {
         setData(savedData);
       } else {
         const fetchDataAndUpdate = async () => {
           const initialData = await getDataFromDb();
-          setData(initialData);
-          localStorage.setItem('data', JSON.stringify(initialData));
+          setData(initialData[id]);
+          localStorage.setItem(`data_${id}`, JSON.stringify(initialData));
         };
         fetchDataAndUpdate();
       }
@@ -38,7 +37,6 @@ const ChartDatabase = () => {
   
   
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-    // console.log(currentTime);
     const [warmup, setWarmup] = useState([
                                           {start: "10:05:00", end: "10:15:00"},
                                           {start: "11:50:00", end: "12:00:00"},
@@ -68,23 +66,10 @@ const ChartDatabase = () => {
       }
       
     }, [data]);
-  
-    const getFill = (people) => {
-      if (people < 5) {
-        return '#21d927';
-      } else if (people >= 5 && people <= 15) {
-        return '#f2b007';
-      } else {
-        return '#e82e2e';
-      }
-    };
-
 
    
-    const { id } = useParams()    
     return (
       <div>
-      
         <div className={styles.chart}>
           <div>{chart[id].text}</div>
           <BarChart
@@ -103,16 +88,16 @@ const ChartDatabase = () => {
             <XAxis dataKey="time" />
             <YAxis />
             <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-            <Bar dataKey="people" fill="orange" isAnimationActive={false}>
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={getFill(entry.people, index)} />
+            <Bar dataKey="amount" fill="orange" isAnimationActive={false}>
+              {data?.map((el, index) => (
+                <Cell key={`cell-${index}`} fill={get_fill(el['amount'])} />
               ))}
             </Bar>
             <Tooltip />
           </BarChart>
         </div>
         <div className={styles.accord}>
-          <Stats people={data?.[14]?.people}/>
+          <Stats people={data?.[14]?.['amount']}/>
         </div>
       </div>
   

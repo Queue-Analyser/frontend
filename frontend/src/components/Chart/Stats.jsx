@@ -7,7 +7,7 @@ const Stats = (props) => {
 
     const chart = useSelector(state => state.chart.chart)
     const people = props.people
-    console.log(people);
+
     return (
         <div>
             <Accordion style={{ backgroundColor: '#fff' }}>
