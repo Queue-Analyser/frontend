@@ -24,4 +24,13 @@ export const getStartTime = () => {
   
     return `${endYear}${endMonth}${endDay}${endHours}${endMinutes}${endSeconds}${endMilliseconds}`;
   };
+
+  export const getTimeFromString = (stringTime) => {
+    const parse = stringTime.split(':').map(el => Number(el));
+    const time = new Date();
+    time.setHours(parse[0]);
+    time.setMinutes(parse[1]);
+    time.setSeconds(parse[2]);
+    return time;
+  }
   

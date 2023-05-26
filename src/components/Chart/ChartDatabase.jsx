@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box } from '@mui/material'
 import { getDataFromDb } from '../../api/getDataFromDb';
 import { getLastElementsJson } from '../../map/getLastElementsJson';
+import { WARM_UP } from "../../utils/consts";
+import { getTimeFromString } from '../../utils/date_format';
 
 import Stats from './Stats';
 import { useParams } from 'react-router-dom';
@@ -33,17 +35,6 @@ const ChartDatabase = () => {
 
   const intervalsRef = useRef([]);
 
-  const warmup = {
-    [id]: [
-      { start: '10:05:00', end: '10:15:00' },
-      { start: '11:50:00', end: '12:00:00' },
-      { start: '13:35:00', end: '13:50:00' },
-      { start: '15:25:00', end: '15:40:00' },
-      { start: '17:15:00', end: '17:25:00' },
-      { start: '19:00:00', end: '19:10:00' },
-    ],
-  };
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       updateData();
@@ -60,15 +51,17 @@ const ChartDatabase = () => {
 
   useEffect(() => {
     const updateDataInterval = () => {
-      const currentTime = new Date().toLocaleTimeString();
+      const currentTime = new Date();
 
-      const currentWarmup = warmup[id];
+      const currentWarmup = WARM_UP[0];
       let intervalId;
 
       for (let i = 0; i < currentWarmup.length; i++) {
         const { start, end } = currentWarmup[i];
-
-        if (currentTime >= start && currentTime <= end) {
+        const startDate = getTimeFromString(start);
+        const endDate = getTimeFromString(end);
+  
+        if (currentTime >= startDate && currentTime <= endDate) {
           intervalId = setInterval(() => {
             updateData();
           }, 1000);
@@ -93,7 +86,7 @@ const ChartDatabase = () => {
       });
       intervalsRef.current = [];
     };
-  }, []);
+  }, [data]);
 
   return (
     <Box>
