@@ -1,6 +1,6 @@
 export const getStartTime = () => {
     const currentTime = new Date();
-    const fifteenMinutesAgo = new Date(currentTime.getTime() - 15 * 60 * 1000);
+    const fifteenMinutesAgo = new Date(currentTime.getTime() - 150 * 60 * 1000);
     const startYear = fifteenMinutesAgo.getFullYear();
     const startMonth = String(fifteenMinutesAgo.getMonth() + 1).padStart(2, '0');
     const startDay = String(fifteenMinutesAgo.getDate()).padStart(2, '0');
