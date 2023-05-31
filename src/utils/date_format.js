@@ -34,3 +34,15 @@ export const getStartTime = () => {
     return time;
   }
   
+  export const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+    return formattedTime;
+  }
+  
+  function padZero(number) {
+    return number.toString().padStart(2, '0');
+  }

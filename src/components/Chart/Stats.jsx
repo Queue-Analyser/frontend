@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Accordion, AccordionDetails, AccordionSummary, Typography, Box } from '@mui/material';
 import LastStats from './LastStats';
 import styles from '../../styles/Chart.module.css';
+import { get_fill } from '../../utils/get_fill';
 
 const Stats = (props) => {
   const chart = useSelector(state => state.chart.chart);
@@ -16,9 +17,12 @@ const Stats = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>
-            Текущее число людей в очереди: {people[id]?.amount}
-          </Typography>
+        <Typography>
+          Текущее число людей в очереди: {" "}
+          <span style={{ color: get_fill(people[id]?.amount) }}>
+           {people[id]?.amount}
+          </span>
+        </Typography>
         </AccordionSummary>
         <AccordionDetails>
           {people.map((person, i) => (

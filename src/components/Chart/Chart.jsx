@@ -2,12 +2,16 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { get_fill } from '../../utils/get_fill';
 import { Box } from '@mui/material';
+import { formatTime } from '../../utils/date_format';
 
 import styles from '../../styles/Chart.module.css';
 
 export default function Chart(props) {
   const text = props.text
-  const data = props.data
+  const data = props.data?.map((item) => ({
+    ...item,
+    time: formatTime(item.time),
+  }));
 
   return (
       <Box className={styles.chart}>
