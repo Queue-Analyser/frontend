@@ -30,7 +30,7 @@ export default function Chart(props) {
           barCategoryGap={1}
         >
           <XAxis dataKey="time" />
-          <YAxis />
+          <YAxis domain={[0, 12]}/>
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
           <Bar dataKey="amount" fill="orange" isAnimationActive={false}>
             {data?.map((el, index) => (

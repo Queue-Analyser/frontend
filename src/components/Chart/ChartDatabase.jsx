@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material';
 import { getDataFromDb } from '../../api/getDataFromDb';
 import { getLastElementsJson } from '../../map/getLastElementsJson';
-import { WARM_UP } from "../../utils/consts";
+import { WARM_UP } from '../../utils/consts';
 import { getTimeFromString } from '../../utils/date_format';
 
 import Stats from './Stats';
@@ -14,10 +14,11 @@ const ChartDatabase = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [stats, setStats] = useState([]);
-  const chart = useSelector(state => state.chart.chart);
+  const chart = useSelector((state) => state.chart.chart);
+  const [fetchInterval, setFetchInterval] = useState(9998);
 
   const updateData = async () => {
-    const updatedData = await getDataFromDb();
+    const updatedData = await getDataFromDb(fetchInterval);
     const updatedStats = getLastElementsJson(updatedData);
     setStats(updatedStats);
     setData(updatedData);
@@ -25,13 +26,13 @@ const ChartDatabase = () => {
 
   useEffect(() => {
     const fetchDataAndUpdate = async () => {
-      const initialData = await getDataFromDb();
+      const initialData = await getDataFromDb(fetchInterval);
       const stats = getLastElementsJson(initialData);
       setStats(stats);
       setData(initialData);
     };
     fetchDataAndUpdate();
-  }, [id]);
+  }, [id, fetchInterval]);
 
   const intervalsRef = useRef([]);
 
@@ -42,12 +43,12 @@ const ChartDatabase = () => {
     intervalsRef.current.push(intervalId);
 
     return () => {
-      intervalsRef.current.forEach(interval => {
+      intervalsRef.current.forEach((interval) => {
         clearInterval(interval);
       });
       intervalsRef.current = [];
     };
-  }, [data]);
+  }, [data, fetchInterval]);
 
   useEffect(() => {
     const updateDataInterval = () => {
@@ -60,7 +61,7 @@ const ChartDatabase = () => {
         const { start, end } = currentWarmup[i];
         const startDate = getTimeFromString(start);
         const endDate = getTimeFromString(end);
-  
+
         if (currentTime >= startDate && currentTime <= endDate) {
           intervalId = setInterval(() => {
             updateData();
@@ -81,15 +82,24 @@ const ChartDatabase = () => {
     updateDataInterval();
 
     return () => {
-      intervalsRef.current.forEach(interval => {
+      intervalsRef.current.forEach((interval) => {
         clearInterval(interval);
       });
       intervalsRef.current = [];
     };
-  }, [data]);
+  }, [data, fetchInterval]);
+
+  const handleIntervalChange = (interval) => {
+    setFetchInterval(interval);
+  };
 
   return (
     <Box>
+      <Box align="center" sx={{ marginTop: 1 }}>
+        <Button variant="outlined" onClick={() => handleIntervalChange(0)} sx={{ marginRight: 1 }}>Лайв</Button>
+        <Button variant="outlined" onClick={() => handleIntervalChange(9998)} sx={{ marginRight: 1 }}>10 секунд</Button>
+        <Button variant="outlined" onClick={() => handleIntervalChange(599000)} sx={{ marginRight: 1 }}>10 минут</Button>
+      </Box>
       <Chart text={chart[id].text} data={data[id]} />
       <Stats people={stats} id={id} />
     </Box>
