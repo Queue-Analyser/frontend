@@ -39,7 +39,7 @@ const ChartDatabase = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       updateData();
-    }, 10000);
+    }, fetchInterval);
     intervalsRef.current.push(intervalId);
 
     return () => {
@@ -73,7 +73,7 @@ const ChartDatabase = () => {
       if (!intervalId) {
         intervalId = setInterval(() => {
           updateData();
-        }, 10000);
+        }, fetchInterval);
       }
 
       intervalsRef.current.push(intervalId);
@@ -96,7 +96,7 @@ const ChartDatabase = () => {
   return (
     <Box>
       <Box align="center" sx={{ marginTop: 1 }}>
-        <Button variant="outlined" onClick={() => handleIntervalChange(0)} sx={{ marginRight: 1 }}>Лайв</Button>
+        <Button variant="outlined" onClick={() => handleIntervalChange(1000)} sx={{ marginRight: 1 }}>Лайв</Button>
         <Button variant="outlined" onClick={() => handleIntervalChange(9998)} sx={{ marginRight: 1 }}>10 секунд</Button>
         <Button variant="outlined" onClick={() => handleIntervalChange(599000)} sx={{ marginRight: 1 }}>10 минут</Button>
       </Box>

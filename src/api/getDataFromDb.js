@@ -1,4 +1,4 @@
-import { getStartTime, getEndTime, getTimeFromString } from '../utils/date_format';
+import { getStartTime, getEndTime } from '../utils/date_format';
 
 const getDataFromDb = async (interval) => {
   try {
